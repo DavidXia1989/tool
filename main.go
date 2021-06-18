@@ -126,6 +126,7 @@ func main(){
 			{name+"/common/cmd_run.go", tpl.Cmd_run},
 			{name+"/common/common.go", tpl.Common},
 			{name+"/common/response.go", tpl.Response},
+			{name+"/conf/config.go", tpl.Conf},
 		},
 	}
 

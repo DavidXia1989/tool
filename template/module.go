@@ -1,6 +1,6 @@
 package template
 
-var Module = `module {{.Name}
+var Module = `module {{.Name}}
 
 go 1.14
 

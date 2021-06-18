@@ -17,7 +17,7 @@ redis:
   db:
 mysql:
   -
-    key: wm_ssp #默认缺省 default
+    key: {{.Name}} #默认缺省 default
     driver: mysql
     host: 127.0.0.1
     port: 3306
