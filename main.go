@@ -45,7 +45,6 @@ func create(c config) error {
 	if _, err := os.Stat(c.GoDir); !os.IsNotExist(err) {
 		return fmt.Errorf("%s already exists", c.GoDir)
 	}
-
 	// just wait
 	<-time.After(time.Millisecond * 250)
 
@@ -55,7 +54,6 @@ func create(c config) error {
 
 	nodes := map[string]treeprint.Tree{}
 	nodes[c.GoDir] = t
-
 	// write the files
 	for _, file := range c.Files {
 		f := filepath.Join(c.GoDir, file.Path)
@@ -73,7 +71,6 @@ func create(c config) error {
 				return err
 			}
 		}
-
 		p := filepath.Base(f)
 
 		b.AddNode(p)
@@ -108,7 +105,6 @@ func main(){
 		fmt.Println("项目名不能为空")
 		return
 	}
-
 	c := config{
 		Name:      name,
 		Dir:       dir,
@@ -154,7 +150,6 @@ func write(c config, file, tmpl string) error {
 		return err
 	}
 	defer f.Close()
-
 	t, err := template.New("f").Funcs(fn).Parse(tmpl)
 	if err != nil {
 		return err
