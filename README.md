@@ -1,6 +1,6 @@
 设置环境变量
-export GOPRIVATE="code.zm.shzhanmeng.com"
-export GOPROXY="https://goproxy.io"
+export GOPRIVATE=code.zm.shzhanmeng.com
+export GOPROXY=https://goproxy.cn
 
 golang 版本 >=1.13
 
