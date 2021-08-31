@@ -116,6 +116,7 @@ func main(){
 			{name+"/shell/monitor_exec.sh", tpl.Sh_monitor_exec},
 			{name+"/shell/publish-script.sh", tpl.Sh_publish_script},
 			{name+"/conf/app.test.yaml", tpl.Yaml},
+			{name+"/conf/app.yaml", tpl.Yaml},
 			{name+"/routers/route.go", tpl.Route},
 			{name+"/controllers/exampleController/example.go", tpl.ExampleController},
 			{name+"/kernel/kernel.go", tpl.Kernel},
@@ -123,6 +124,7 @@ func main(){
 			{name+"/common/common.go", tpl.Common},
 			{name+"/common/response.go", tpl.Response},
 			{name+"/conf/config.go", tpl.Conf},
+			{name+"/.gitignore", tpl.Gitignore},
 		},
 	}
 
