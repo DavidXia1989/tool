@@ -1,20 +1,35 @@
-设置环境变量
-export GOPRIVATE=code.zm.shzhanmeng.com
-export GOPROXY=https://goproxy.cn
+##环境要求
 
 golang 版本 >=1.13
 
-go get code.zm.shzhanmeng.com/go-common/zmtool
+设置环境变量
 
+```shell
+#代理&私有库地址
+export GOPRIVATE=code.zm.shzhanmeng.com
+export GOPROXY=https://goproxy.cn
+#设置gopath/bin路径
 {{gopath}}/bin 加入环境变量
+```
+
+### 获取工具
+
+```
+go get code.zm.shzhanmeng.com/go-common/zmtool
+```
+
+### 使用
+
+```
+zmtool example
+```
 
 zmtool example   会在当前目录下创建一个 example目录
 
-zmtool example
 
-Creating service  in
 
-.
+### 目录结构
+```
 ├── example
 │   ├── main.go //入口文件
 │   ├── go-build.sh //构建脚本
@@ -36,3 +51,4 @@ Creating service  in
 ├── cmd_run.go
 ├── common.go
 └── response.go
+```
