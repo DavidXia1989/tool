@@ -15,7 +15,7 @@ import (
 	"syscall"
 	"errors"
 	"{{.Name}}/common"
-	"{{.Name}}/grpc/handler"
+	"{{.Name}}/handler"
 	"{{.Name}}/proto/example"
 	service2 "{{.Name}}/domain/service"
 	"fmt"
