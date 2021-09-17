@@ -4,7 +4,6 @@ var MainFunc = `package main
 
 import (
 	"{{.Name}}/kernel"
-	"{{.Name}}/routers"
 	"{{.Name}}/conf"
 )
 
@@ -17,7 +16,6 @@ func main() {
 	//ctx := kernel.SetSignal()
 	kernel.SetupRedis()
 	kernel.SetupMysql()
-	kernel.SetupHttp(routers.InitRoute())
 	//go kernel.SetupCron(ctx)
 
 }`
