@@ -5,7 +5,6 @@ import (
 	"code.zm.shzhanmeng.com/go-common/mysql_xorm"
 	"code.zm.shzhanmeng.com/go-common/redis"
 	"code.zm.shzhanmeng.com/go-common/logging"
-	"code.zm.shzhanmeng.com/go-common/cron"
 	"github.com/gin-gonic/gin"
 	"path/filepath"
 	"io/ioutil"
@@ -16,12 +15,23 @@ import (
 	"syscall"
 	"errors"
 	"{{.Name}}/common"
+	"{{.Name}}/grpc/handler"
+	"{{.Name}}/proto/example"
+	service2 "{{.Name}}/domain/service"
+	"fmt"
+	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/registry"
+	"github.com/micro/go-micro/v2/registry/etcd"
+	ratelimit "github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2"
+	"go.uber.org/zap"
 )
 
 type server struct {
 	ProjectName string	` + "`" + `yaml:"project_name"` + "`" + `
 	RunMode 	string	` + "`" + `yaml:"run_mode"` + "`" + `
 	HttpPort	string	` + "`" + `yaml:"http_port"` + "`" + `
+	GrpcPort	string	` + "`" + `yaml:"grpc_port"` + "`" + `
+	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
 	Mysql		[]mysql_xorm.XmsyqlConf	` + "`" + `yaml:"mysql"` + "`" + `
 	Redis		redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
 	Log			logging.LogConf			` + "`" + `yaml:"log"` + "`" + `
@@ -116,8 +126,34 @@ func SetupHttp(r *gin.Engine){
 	}
 }
 
-// 启动cron定时任务
-func SetupCron(ctx context.Context){
-	cron.StartByGraceful(ctx)
+//grpc服务
+func SetupGrpc(){
+	grpcAddr := "0.0.0.0:"+ServerSetting.GrpcPort
+
+	service := micro.NewService(
+		micro.Name("{{.Name}}"),
+		micro.Address(grpcAddr),
+		micro.Registry(etcd.NewRegistry(registry.Addrs(ServerSetting.Registry))),
+		// 限流5
+		micro.WrapHandler(ratelimit.NewHandlerWrapper(100)),
+	)
+
+	// Init will parse the command line flags.
+	service.Init()
+
+	//注册服务
+	err=example.RegisterExampleHandler(service.Server(),&handler.Example{
+		ExampleService: service2.NewExampleApi(),
+	})
+	if err != nil {
+		logging.ZapLogger.Info("业务端通信服务注册失败",zap.Error(err))
+		fmt.Println(err.Error())
+	}
+
+	//启动并监听服务
+	if err := service.Run(); err != nil {
+		logging.ZapLogger.Info("micro grpc 启动失败",zap.Error(err))
+		fmt.Println(err)
+	}
 }
 `

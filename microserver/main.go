@@ -5,6 +5,7 @@ var MainFunc = `package main
 import (
 	"{{.Name}}/kernel"
 	"{{.Name}}/conf"
+	"{{.Name}}/grpc"
 )
 
 func init(){
@@ -17,5 +18,6 @@ func main() {
 	kernel.SetupRedis()
 	kernel.SetupMysql()
 	//go kernel.SetupCron(ctx)
+	kernel.SetupGrpc()
 
 }`

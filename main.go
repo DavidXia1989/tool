@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/xlab/treeprint"
 	tpl "code.zm.shzhanmeng.com/go-common/zmtool/template"
+	servertpl "code.zm.shzhanmeng.com/go-common/zmtool/microserver"
 	"os"
 	"path"
 	"path/filepath"
@@ -94,37 +95,94 @@ func create(c config) error {
 
 func main(){
 	useGoModule := os.Getenv("GO111MODULE")
-	var dir,name,goRoot string
+	var dir,name,goRoot,projType string
 	flag.StringVar(&goRoot, "goroot", "/usr/local/go1.14/bin", "构建时 go目录 /usr/local/go1.14/bin")
 	flag.StringVar(&dir, "dir", "", "创建目录")
 	name = os.Args[1]
+	projType = os.Args[2]
 	flag.Parse()
+
 
 	if name=="" {
 		fmt.Println("项目名不能为空")
 		return
 	}
-	c := config{
-		Name:      name,
-		Dir:       dir,
-		GoRoot:    goRoot,
-		Files: []file{
-			{name+"/main.go", tpl.MainFunc},
-			{name+"/go-build.sh", tpl.Sh_go_build},
-			{name+"/shell/check_monitor.sh", tpl.Sh_check_monitor},
-			{name+"/shell/monitor_exec.sh", tpl.Sh_monitor_exec},
-			{name+"/shell/publish-script.sh", tpl.Sh_publish_script},
-			{name+"/conf/app.test.yaml", tpl.Yaml},
-			{name+"/conf/app.yaml", tpl.Yaml},
-			{name+"/routers/route.go", tpl.Route},
-			{name+"/controllers/exampleController/example.go", tpl.ExampleController},
-			{name+"/kernel/kernel.go", tpl.Kernel},
-			{name+"/common/cmd_run.go", tpl.Cmd_run},
-			{name+"/common/common.go", tpl.Common},
-			{name+"/common/response.go", tpl.Response},
-			{name+"/conf/config.go", tpl.Conf},
-			{name+"/.gitignore", tpl.Gitignore},
-		},
+
+	var c config
+
+	switch projType {
+		case "client":
+			c = config{
+				Name:      name,
+				Dir:       dir,
+				GoRoot:    goRoot,
+				Files: []file{
+					{name+"/main.go", tpl.MainFunc},
+					{name+"/go-build.sh", tpl.Sh_go_build},
+					{name+"/shell/check_monitor.sh", tpl.Sh_check_monitor},
+					{name+"/shell/monitor_exec.sh", tpl.Sh_monitor_exec},
+					{name+"/shell/publish-script.sh", tpl.Sh_publish_script},
+					{name+"/conf/app.test.yaml", tpl.Yaml},
+					{name+"/conf/app.yaml", tpl.Yaml},
+					{name+"/routers/route.go", tpl.Route},
+					{name+"/controllers/exampleController/example.go", tpl.ExampleController},
+					{name+"/kernel/kernel.go", tpl.Kernel},
+					{name+"/common/cmd_run.go", tpl.Cmd_run},
+					{name+"/common/common.go", tpl.Common},
+					{name+"/common/response.go", tpl.Response},
+					{name+"/conf/config.go", tpl.Conf},
+					{name+"/.gitignore", tpl.Gitignore},
+				},
+			}
+	    case "server":
+			c = config{
+				Name:      name,
+				Dir:       dir,
+				GoRoot:    goRoot,
+				Files: []file{
+					{name+"/main.go", servertpl.MainFunc},
+					{name+"/go-build.sh", servertpl.Sh_go_build},
+					{name+"/shell/check_monitor.sh", servertpl.Sh_check_monitor},
+					{name+"/shell/monitor_exec.sh", servertpl.Sh_monitor_exec},
+					{name+"/shell/publish-script.sh", servertpl.Sh_publish_script},
+					{name+"/conf/app.test.yaml", servertpl.Yaml},
+					{name+"/conf/app.yaml", servertpl.Yaml},
+					{name+"/kernel/kernel.go", servertpl.Kernel},
+					{name+"/common/cmd_run.go", servertpl.Cmd_run},
+					{name+"/common/common.go", servertpl.Common},
+					{name+"/common/response.go", servertpl.Response},
+					{name+"/conf/config.go", servertpl.Conf},
+					{name+"/.gitignore", servertpl.Gitignore},
+					{name+"/proto/example.proto", servertpl.Proto},
+					{name+"/domain/service/exampleService.go", servertpl.Service},
+					{name+"/handler/example.go", servertpl.Handler},
+				},
+			}
+		default:
+			c = config{
+			Name:      name,
+			Dir:       dir,
+			GoRoot:    goRoot,
+			Files: []file{
+				{name+"/main.go", tpl.MainFunc},
+				{name+"/go-build.sh", tpl.Sh_go_build},
+				{name+"/shell/check_monitor.sh", tpl.Sh_check_monitor},
+				{name+"/shell/monitor_exec.sh", tpl.Sh_monitor_exec},
+				{name+"/shell/publish-script.sh", tpl.Sh_publish_script},
+				{name+"/conf/app.test.yaml", tpl.Yaml},
+				{name+"/conf/app.yaml", tpl.Yaml},
+				{name+"/routers/route.go", tpl.Route},
+				{name+"/controllers/exampleController/example.go", tpl.ExampleController},
+				{name+"/kernel/kernel.go", tpl.Kernel},
+				{name+"/common/cmd_run.go", tpl.Cmd_run},
+				{name+"/common/common.go", tpl.Common},
+				{name+"/common/response.go", tpl.Response},
+				{name+"/conf/config.go", tpl.Conf},
+				{name+"/.gitignore", tpl.Gitignore},
+			},
+		}
+
+
 	}
 
 	if path.IsAbs(dir) {

@@ -20,5 +20,10 @@ require (
 	go.uber.org/zap v1.17.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	xorm.io/core v0.7.3 // indirect
+	github.com/micro/go-micro/v2 v2.9.1
+	github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2 v2.9.1
+	github.com/micro/micro/v2 v2.9.3 // indirect
+	google.golang.org/protobuf v1.27.1
+	github.com/golang/protobuf v1.5.0
 )
 `
