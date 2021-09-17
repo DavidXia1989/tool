@@ -93,7 +93,6 @@ func create(c config) error {
 }
 
 func main(){
-	fmt.Println()
 	useGoModule := os.Getenv("GO111MODULE")
 	var dir,name,goRoot string
 	flag.StringVar(&goRoot, "goroot", "/usr/local/go1.14/bin", "构建时 go目录 /usr/local/go1.14/bin")
