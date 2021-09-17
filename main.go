@@ -159,31 +159,30 @@ func main(){
 					{name+"/domain/model/example.go", servertpl.Model},
 				},
 			}
-		default:
+		case "zmtool":
 			c = config{
-			Name:      name,
-			Dir:       dir,
-			GoRoot:    goRoot,
-			Files: []file{
-				{name+"/main.go", tpl.MainFunc},
-				{name+"/go-build.sh", tpl.Sh_go_build},
-				{name+"/shell/check_monitor.sh", tpl.Sh_check_monitor},
-				{name+"/shell/monitor_exec.sh", tpl.Sh_monitor_exec},
-				{name+"/shell/publish-script.sh", tpl.Sh_publish_script},
-				{name+"/conf/app.test.yaml", tpl.Yaml},
-				{name+"/conf/app.yaml", tpl.Yaml},
-				{name+"/routers/route.go", tpl.Route},
-				{name+"/controllers/exampleController/example.go", tpl.ExampleController},
-				{name+"/kernel/kernel.go", tpl.Kernel},
-				{name+"/common/cmd_run.go", tpl.Cmd_run},
-				{name+"/common/common.go", tpl.Common},
-				{name+"/common/response.go", tpl.Response},
-				{name+"/conf/config.go", tpl.Conf},
-				{name+"/.gitignore", tpl.Gitignore},
-			},
-		}
-
-
+				Name:      name,
+				Dir:       dir,
+				GoRoot:    goRoot,
+				Files: []file{
+					{name+"/main.go", tpl.MainFunc},
+					{name+"/go-build.sh", tpl.Sh_go_build},
+					{name+"/shell/check_monitor.sh", tpl.Sh_check_monitor},
+					{name+"/shell/monitor_exec.sh", tpl.Sh_monitor_exec},
+					{name+"/shell/publish-script.sh", tpl.Sh_publish_script},
+					{name+"/conf/app.test.yaml", tpl.Yaml},
+					{name+"/conf/app.yaml", tpl.Yaml},
+					{name+"/routers/route.go", tpl.Route},
+					{name+"/controllers/exampleController/example.go", tpl.ExampleController},
+					{name+"/kernel/kernel.go", tpl.Kernel},
+					{name+"/common/cmd_run.go", tpl.Cmd_run},
+					{name+"/common/common.go", tpl.Common},
+					{name+"/common/response.go", tpl.Response},
+					{name+"/conf/config.go", tpl.Conf},
+					{name+"/.gitignore", tpl.Gitignore},
+				},
+			}
+		default:
 	}
 
 	if path.IsAbs(dir) {
