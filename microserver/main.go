@@ -5,7 +5,6 @@ var MainFunc = `package main
 import (
 	"{{.Name}}/kernel"
 	"{{.Name}}/conf"
-	"{{.Name}}/grpc"
 )
 
 func init(){
