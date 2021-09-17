@@ -5,7 +5,6 @@ var Service = `package service
 import (
 	"code.zm.shzhanmeng.com/go-common/mysql_xorm"
 	"code.zm.shzhanmeng.com/go-common/logging"
-	"fmt"
 	"go.uber.org/zap"
 	"{{.Name}}/domain/model"
 )
