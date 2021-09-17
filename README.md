@@ -26,6 +26,8 @@ zmtool example
 
 zmtool example   会在当前目录下创建一个 example目录
 
+cd example
+protoc -I. --go_out=. --micro_out=. proto/example.proto
 
 
 ### 目录结构
