@@ -17,13 +17,13 @@ redis:
   db:
 mysql:
   -
-    key: {{.Name}} #默认缺省 default
+    key: gomicro #默认缺省 default
     driver: mysql
-    host: 127.0.0.1
+    host: 172.18.15.43
     port: 3306
-    database: {{.Name}}
-    username: {{.Name}}
-    password: {{.Name}}
+    database: gomicro
+    username: developer
+    password: DN3v74JB
     charset: utf8
     prefix:
     policies: 1 #从库的负载策略 默认轮询访问 0:轮询访问; 1：随机访问;2：权重随机;3：权重轮询;4：最小连接数
@@ -35,11 +35,11 @@ mysql:
       -
         key: master #主从库关键字 主库/从库
         driver: mysql
-        host: 127.0.0.1
+        host: 172.18.15.43
         port: 3306
-        database: {{.Name}}
-        username: {{.Name}}
-        password: {{.Name}}
+        database: gomicro
+        username: developer
+        password: DN3v74JB
         charset: utf8
         prefix: #表名前缀
         policies_weight: 2 # 权重比

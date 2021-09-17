@@ -23,7 +23,13 @@ func NewExampleApi() *ExampleLogin {
 
 func (u *ExampleLogin) Login(example *model.Example) (int64, error) {
 	//业务
-	
-	return id,nil
+	var res model.Example
+	err := mysql_xorm.GetMysqlClient("gomicro").Table("user").Where("name",example.Name).Find(&res)
+	if err != nil {
+		logging.ZapLogger.Error("注册失败",zap.String("errmsg", err.Error()))
+		return 0,err
+	}
+
+	return res.Id,nil
 }
 `

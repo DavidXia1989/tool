@@ -1,11 +1,10 @@
 package template
 
-var Handler = `package handle
+var Handler = `package handler
 
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"{{.Name}}/domain/model"
 	"{{.Name}}/domain/service"
 	"{{.Name}}/proto/example"
@@ -22,7 +21,6 @@ func (e *Example) Login(ctx context.Context,request *example.LoginMsgReq, respos
 		return err
 	}
 	json.Unmarshal(jsonRequest, example)
-	fmt.Println(user)
-	respose.UserId, err = e.ExampleService.Login(example)
+	respose.Result, err = e.ExampleService.Login(example)
 	return nil
 }`

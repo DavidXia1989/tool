@@ -142,7 +142,7 @@ func SetupGrpc(){
 	service.Init()
 
 	//注册服务
-	err=example.RegisterExampleHandler(service.Server(),&handler.Example{
+	err:=example.RegisterExampleHandler(service.Server(),&handler.Example{
 		ExampleService: service2.NewExampleApi(),
 	})
 	if err != nil {
