@@ -28,10 +28,6 @@ zmtool example pro_type  会在当前目录下创建一个 example目录
 pro_type=sever //microservre
 pro_type=client //microclient
 pro_type=zmtool //zmtool
-    
-
-cd example
-protoc -I. --go_out=. --micro_out=. proto/example.proto
 
 
 ### 目录结构

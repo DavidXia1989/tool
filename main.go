@@ -1,11 +1,11 @@
 package main
 
 import (
+	servertpl "code.zm.shzhanmeng.com/go-common/zmtool/microserver"
+	tpl "code.zm.shzhanmeng.com/go-common/zmtool/template"
 	"flag"
 	"fmt"
 	"github.com/xlab/treeprint"
-	tpl "code.zm.shzhanmeng.com/go-common/zmtool/template"
-	servertpl "code.zm.shzhanmeng.com/go-common/zmtool/microserver"
 	"os"
 	"path"
 	"path/filepath"
@@ -98,8 +98,17 @@ func main(){
 	var dir,name,goRoot,projType string
 	flag.StringVar(&goRoot, "goroot", "/usr/local/go1.14/bin", "构建时 go目录 /usr/local/go1.14/bin")
 	flag.StringVar(&dir, "dir", "", "创建目录")
+
+	if len(os.Args) < 2 {
+		fmt.Println("项目名不能为空")
+	}
+	if len(os.Args) < 3 {
+		projType = "proj"
+	} else {
+		projType = os.Args[2]
+	}
 	name = os.Args[1]
-	projType = os.Args[2]
+
 	flag.Parse()
 
 
@@ -111,7 +120,7 @@ func main(){
 	var c config
 
 	switch projType {
-		case "client":
+		case "api":
 			c = config{
 				Name:      name,
 				Dir:       dir,
@@ -141,6 +150,7 @@ func main(){
 				GoRoot:    goRoot,
 				Files: []file{
 					{name+"/main.go", servertpl.MainFunc},
+					{name+"/readme.md", servertpl.Readme},
 					{name+"/go-build.sh", servertpl.Sh_go_build},
 					{name+"/shell/check_monitor.sh", servertpl.Sh_check_monitor},
 					{name+"/shell/monitor_exec.sh", servertpl.Sh_monitor_exec},
@@ -159,7 +169,7 @@ func main(){
 					{name+"/domain/model/example.go", servertpl.Model},
 				},
 			}
-		case "zmtool":
+		case "proj":
 			c = config{
 				Name:      name,
 				Dir:       dir,
