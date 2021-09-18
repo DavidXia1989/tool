@@ -7,7 +7,8 @@ golang >= 1.13
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn/,direct
 export GOPRIVATE=code.zm.shzhanmeng.com
-{{gopath}}/bin 加入环境变量
+{{.GoPath}}/bin 加入环境变量
+GoPath/bin 加入环境变量
 ` + "`" +  "`"  + "`" +`
 
 安装protoc

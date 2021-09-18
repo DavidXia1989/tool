@@ -8,7 +8,7 @@ require (
 	code.zm.shzhanmeng.com/go-common/cron v0.0.0-20201222054010-a8ea79fea7e1
 	code.zm.shzhanmeng.com/go-common/logging v0.0.0-20210207090756-8be76f7db7dc
 	code.zm.shzhanmeng.com/go-common/mysql_xorm v0.0.0-20210118111623-91ade31e7971
-	code.zm.shzhanmeng.com/go-common/redis v0.0.0-20201202075447-a914ee2d7409
+	code.zm.shzhanmeng.com/go-common/redis v0.0.0-20210918022451-021f6ae5440e
 	github.com/gin-gonic/gin v1.7.2
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
