@@ -31,6 +31,7 @@ type server struct {
 	HttpPort	string	` + "`" + `yaml:"http_port"` + "`" + `
 	GrpcPort	string	` + "`" + `yaml:"grpc_port"` + "`" + `
 	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
+	Qps	        int	` + "`" + `yaml:"qps"` + "`" + `
 	Mysql		[]mysql_xorm.XmsyqlConf	` + "`" + `yaml:"mysql"` + "`" + `
 	Redis		[]redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
 	Log			logging.LogConf			` + "`" + `yaml:"log"` + "`" + `
@@ -131,12 +132,12 @@ func GrpcInit(){
 	grpcAddr := "0.0.0.0:"+ServerSetting.GrpcPort
 
 	ser := micro.NewService(
-		micro.Name("zmtooltest"),
+		micro.Name(ServerSetting.ProjectName),
 		micro.Address(grpcAddr),
 		micro.Registry(etcd.NewRegistry(registry.Addrs(ServerSetting.Registry))),
-		// 限流5
-		micro.WrapHandler(ratelimit.NewHandlerWrapper(100)),
-
+		// 限流
+		micro.WrapHandler(ratelimit.NewHandlerWrapper(ServerSetting.Qps)),
+		// 链路追踪
 		micro.WrapHandler(opentracing2.NewHandlerWrapper(opentracing.GlobalTracer())),
 	)
 	MicroServer = &ser

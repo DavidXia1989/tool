@@ -3,6 +3,8 @@ package template
 var Yaml = `project_name: {{.Name}}
 http_port: 8088
 grpc_port: 9988
+registry:  172.18.15.182:2379
+qps: 100
 #debug or prod
 run_mode: debug
 cos_root_path: /
