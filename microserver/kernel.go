@@ -21,6 +21,7 @@ import (
 	"github.com/micro/go-micro/v2/registry"
 	"github.com/micro/go-micro/v2/registry/etcd"
 	ratelimit "github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2"
+	opentracing2 "github.com/micro/go-plugins/wrapper/trace/opentracing/v2"
 	"go.uber.org/zap"
 )
 
@@ -135,6 +136,8 @@ func GrpcInit(){
 		micro.Registry(etcd.NewRegistry(registry.Addrs(ServerSetting.Registry))),
 		// 限流5
 		micro.WrapHandler(ratelimit.NewHandlerWrapper(100)),
+
+		micro.WrapHandler(opentracing2.NewHandlerWrapper(opentracing.GlobalTracer())),
 	)
 	MicroServer = &ser
 	// Init will parse the command line flags.

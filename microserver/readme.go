@@ -17,6 +17,7 @@ GoPath/bin 加入环境变量
 go get github.com/protocolbuffers/protobuf/v2
 go get github.com/golang/protobuf/protoc-gen-go
 go get github.com/micro/protoc-gen-micro/v2
+go get github.com/micro/go-plugins/wrapper/trace/opentracing/v2
 ` + "`" +  "`"  + "`" +`
 
 ### 运行
