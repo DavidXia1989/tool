@@ -6,7 +6,7 @@ package main
 import (
     "context"
     "fmt"
-    "test/proto/example"
+    "{{.Name}}/proto/example"
     "time"
     "github.com/micro/go-micro/v2/client"
     "github.com/micro/go-micro/v2/client/grpc"

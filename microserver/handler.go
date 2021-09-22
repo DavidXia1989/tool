@@ -16,7 +16,7 @@ type Example struct {
 
 func (e *Example) Login(ctx context.Context,request *example.LoginMsgReq, respose *example.LoginMsgRes) (err error) {
 	example := &model.Example{}
-	jsonRequest,err := json.Marshal(request)
+	jsonRequest,err := json.Marshal(request.Msg[0])
 	if err != nil {
 		return err
 	}
