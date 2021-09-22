@@ -21,5 +21,6 @@ func main() {
 	kernel.GrpcInit()
 	handler.RegistryHandler()
 	kernel.GrpcStart()
+	kernel.SetTracer()
 
 }`
