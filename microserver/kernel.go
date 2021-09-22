@@ -5,6 +5,7 @@ import (
 	"code.zm.shzhanmeng.com/go-common/mysql_xorm"
 	"code.zm.shzhanmeng.com/go-common/redis"
 	"code.zm.shzhanmeng.com/go-common/logging"
+	"github.com/opentracing/opentracing-go"
 	"github.com/gin-gonic/gin"
 	"path/filepath"
 	"io/ioutil"
@@ -147,4 +148,15 @@ func GrpcStart(){
 		fmt.Println(err)
 	}
 }
+
+
+func SetTracer()  {
+	t,io,err := common.NewTracer("go.micro.service.project", "localhost:6831")
+	if err != nil {
+		logging.ZapLogger.Error(err.Error())
+	}
+	defer io.Close()
+	opentracing.SetGlobalTracer(t)
+}
 `
+
