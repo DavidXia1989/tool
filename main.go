@@ -166,6 +166,7 @@ func main(){
 					{name+"/proto/example.proto", servertpl.Proto},
 					{name+"/domain/service/exampleService.go", servertpl.Service},
 					{name+"/handler/example.go", servertpl.Handler},
+					{name+"/handler/RegistryHandle.go", servertpl.RegisterHandler},
 					{name+"/domain/model/example.go", servertpl.Model},
 				},
 			}

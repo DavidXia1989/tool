@@ -23,7 +23,7 @@ type server struct {
 	RunMode 	string	` + "`" + `yaml:"run_mode"` + "`" + `
 	HttpPort	string	` + "`" + `yaml:"http_port"` + "`" + `
 	Mysql		[]mysql_xorm.XmsyqlConf	` + "`" + `yaml:"mysql"` + "`" + `
-	Redis		redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
+	Redis		[]redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
 	Log			logging.LogConf			` + "`" + `yaml:"log"` + "`" + `
 }
 // 系统配置
@@ -100,7 +100,7 @@ func SetupRedis(){
 	if common.IsStructureEmpty(redis.RedisConf{},ServerSetting.Redis) {
 		return
 	}
-	_, err := redis.NewClient(ServerSetting.Redis)
+	err := redis.NewClients(ServerSetting.Redis)
 	if err != nil {
 		panic(errors.New("link redis err:'" + err.Error()))
 	}

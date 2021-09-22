@@ -15,9 +15,6 @@ import (
 	"syscall"
 	"errors"
 	"{{.Name}}/common"
-	"{{.Name}}/handler"
-	"{{.Name}}/proto/example"
-	service2 "{{.Name}}/domain/service"
 	"fmt"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/registry"
@@ -33,7 +30,7 @@ type server struct {
 	GrpcPort	string	` + "`" + `yaml:"grpc_port"` + "`" + `
 	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
 	Mysql		[]mysql_xorm.XmsyqlConf	` + "`" + `yaml:"mysql"` + "`" + `
-	Redis		redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
+	Redis		[]redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
 	Log			logging.LogConf			` + "`" + `yaml:"log"` + "`" + `
 }
 // 系统配置
@@ -41,6 +38,7 @@ var ServerSetting = &server{}
 
 // 配置句柄
 var ConfigContent []byte
+var MicroServer *micro.Service
 
 // 动态映射获取配置
 func GetConfig(conf interface{}) error {
@@ -110,7 +108,7 @@ func SetupRedis(){
 	if common.IsStructureEmpty(redis.RedisConf{},ServerSetting.Redis) {
 		return
 	}
-	_, err := redis.NewClient(ServerSetting.Redis)
+	err := redis.NewClients(ServerSetting.Redis)
 	if err != nil {
 		panic(errors.New("link redis err:'" + err.Error()))
 	}
@@ -126,32 +124,25 @@ func SetupHttp(r *gin.Engine){
 	}
 }
 
-//grpc服务
-func SetupGrpc(){
+//初始化grpc服务
+func GrpcInit(){
 	grpcAddr := "0.0.0.0:"+ServerSetting.GrpcPort
 
-	service := micro.NewService(
-		micro.Name("{{.Name}}"),
+	ser := micro.NewService(
+		micro.Name("zmtooltest"),
 		micro.Address(grpcAddr),
 		micro.Registry(etcd.NewRegistry(registry.Addrs(ServerSetting.Registry))),
 		// 限流5
 		micro.WrapHandler(ratelimit.NewHandlerWrapper(100)),
 	)
-
+	MicroServer = &ser
 	// Init will parse the command line flags.
-	service.Init()
+	(*MicroServer).Init()
+}
 
-	//注册服务
-	err:=example.RegisterExampleHandler(service.Server(),&handler.Example{
-		ExampleService: service2.NewExampleApi(),
-	})
-	if err != nil {
-		logging.ZapLogger.Info("业务端通信服务注册失败",zap.Error(err))
-		fmt.Println(err.Error())
-	}
-
+func GrpcStart(){
 	//启动并监听服务
-	if err := service.Run(); err != nil {
+	if err := (*MicroServer).Run(); err != nil {
 		logging.ZapLogger.Info("micro grpc 启动失败",zap.Error(err))
 		fmt.Println(err)
 	}

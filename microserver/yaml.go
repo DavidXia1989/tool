@@ -2,6 +2,7 @@ package template
 
 var Yaml = `project_name: {{.Name}}
 http_port: 8088
+grpc_port: 9988
 #debug or prod
 run_mode: debug
 cos_root_path: /
@@ -10,11 +11,18 @@ log:
   name: app
   level: debug #日志等级 默认不配置是debug debug->info->warn->error
 redis:
-  name: default
-  host: 127.0.0.1
-  port: 6379
-  password:
-  db:
+  -
+    name: default
+    host: 127.0.0.1
+    port: 6379
+    password:
+    db:
+  -
+    name: redis2
+    host: 127.0.0.1
+    port: 6379
+    password:
+    db:
 mysql:
   -
     key: gomicro #默认缺省 default
