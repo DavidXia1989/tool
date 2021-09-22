@@ -168,6 +168,7 @@ func main(){
 					{name+"/handler/example.go", servertpl.Handler},
 					{name+"/handler/RegistryHandle.go", servertpl.RegisterHandler},
 					{name+"/domain/model/example.go", servertpl.Model},
+					{name+"/common/jargre.go", servertpl.Jaegre},
 				},
 			}
 		case "proj":
