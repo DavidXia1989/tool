@@ -5,18 +5,14 @@ package example;// 包名
 option go_package="/proto/example;example";
 
 service Example {
-    rpc Login(LoginMsgReq) returns(LoginMsgRes) {}
+    rpc Hello(HelloReq) returns(HelloRep) {}
 }
 
-message LoginMsgReq{
-    repeated Msg msg = 1;
-}
-message Msg{
+message HelloReq{
     string name = 1;
-    string password = 2;
 }
 
-message LoginMsgRes{
-    int64 result = 1;
+message HelloRep{
+    string msg = 1;
 }
 `

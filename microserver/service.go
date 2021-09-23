@@ -3,32 +3,25 @@ package template
 var Service = `package service
 
 import (
-	"code.zm.shzhanmeng.com/go-common/mysql_xorm"
-	"code.zm.shzhanmeng.com/go-common/logging"
-	"go.uber.org/zap"
 	"{{.Name}}/domain/model"
 )
 
 type IExampleService interface {
-	Login(*model.Example) (int64, error)
+	Hello(*model.Example) (string, error)
 }
 
-type ExampleLogin struct {}
+type ExampleHello struct {}
 
 
-func NewExampleApi() *ExampleLogin {
-	return &ExampleLogin{}
+func NewExampleApi() *ExampleHello {
+	return &ExampleHello{}
 }
 
-func (u *ExampleLogin) Login(example *model.Example) (int64, error) {
+func (u *ExampleHello) Hello(example *model.Example) (string, error) {
 	//业务
-	var res model.Example
-	err := mysql_xorm.GetMysqlClient("gomicro").Table("user").Where("name",example.Name).Find(&res)
-	if err != nil {
-		logging.ZapLogger.Error("注册失败",zap.String("errmsg", err.Error()))
-		return 0,err
-	}
+	hello := "Hello " + example.Name
 
-	return res.Id,nil
+	return hello,nil
 }
+
 `

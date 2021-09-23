@@ -58,7 +58,7 @@ micro:
   grpc_port: 9988
   tracer_server_name: go.micro.server.{{.Name}}
   tracer_client_name: go.micro.client.{{.Name}}
-  tracer_addr:  172.18.15.182:2379
+  tracer_addr:  127.0.0.1:6831
   registry:  172.18.15.182:2379
   qps: 100
 `

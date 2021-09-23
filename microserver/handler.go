@@ -14,13 +14,13 @@ type Example struct {
 	ExampleService service.IExampleService
 }
 
-func (e *Example) Login(ctx context.Context,request *example.LoginMsgReq, respose *example.LoginMsgRes) (err error) {
+func (e *Example) Hello(ctx context.Context,request *example.HelloReq, respose *example.HelloRep) (err error) {
 	example := &model.Example{}
-	jsonRequest,err := json.Marshal(request.Msg[0])
+	jsonRequest,err := json.Marshal(request)
 	if err != nil {
 		return err
 	}
 	json.Unmarshal(jsonRequest, example)
-	respose.Result, err = e.ExampleService.Login(example)
+	respose.Msg, err = e.ExampleService.Hello(example)
 	return nil
 }`
