@@ -17,7 +17,7 @@ func main() {
 	//ctx := kernel.SetSignal()
 	kernel.SetupRedis()
 	kernel.SetupMysql()
-	handler.RegistryHandler()
+	handler.Registry()
 	//go kernel.SetupCron(ctx)
 	//kernel.SetTracer()
 	//kernel.GrpcInit()

@@ -21,7 +21,7 @@ service2 "{{.Name}}/domain/service"
 
 var MicroServer micro.Service
 
-func RegistryHandler(){
+func Registry(){
 	//创建链路追踪实例
 
 	t,io,err := common.NewTracer(conf.Conf.Micro.TracerServerName, conf.Conf.Micro.TracerAddr)
@@ -45,6 +45,15 @@ func RegistryHandler(){
 
 	MicroServer.Init()
 
+	Handler()
+
+	if err = MicroServer.Run(); err != nil {
+		logging.ZapLogger.Info("micro grpc 启动失败",zap.Error(err))
+		fmt.Println(err)
+	}
+}
+
+func Handler() {
 	var errs  []error
 	//注册服务
 	errs = append(errs, example.RegisterExampleHandler(MicroServer.Server(),&Example{
@@ -57,10 +66,6 @@ func RegistryHandler(){
 			fmt.Println(errs[k].Error())
 		}
 	}
-
-	if err = MicroServer.Run(); err != nil {
-		logging.ZapLogger.Info("micro grpc 启动失败",zap.Error(err))
-		fmt.Println(err)
-	}
-}`
+}
+`
 
