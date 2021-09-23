@@ -21,13 +21,14 @@ go get code.zm.shzhanmeng.com/go-common/zmtool
 ### 使用
 
 ```
+// 生成一个单体应用
 zmtool example
-```
+// 生成一个服务
+zmtool exampleServ server
+// 生成一个api网关
+zmttol exampleApi api
 
-zmtool example pro_type  会在当前目录下创建一个 example目录
-pro_type=sever //microservre
-pro_type=client //microclient
-pro_type=zmtool //zmtool
+```
 
 
 ### 目录结构
