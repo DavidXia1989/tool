@@ -15,7 +15,7 @@ opentracing2 "github.com/micro/go-plugins/wrapper/trace/opentracing/v2"
 "go.uber.org/zap"
 "{{.Name}}/common"
 "{{.Name}}/conf"
-service2 "microServerExample/domain/service"
+service2 "{{.Name}}/domain/service"
 "{{.Name}}/proto/example"
 )
 
