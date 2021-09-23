@@ -2,9 +2,6 @@ package template
 
 var Yaml = `project_name: {{.Name}}
 http_port: 8088
-grpc_port: 9988
-registry:  172.18.15.182:2379
-qps: 100
 #debug or prod
 run_mode: debug
 cos_root_path: /
@@ -56,4 +53,12 @@ mysql:
 app_center:
   app_host: http://123.59.58.212:8001
   app_url: /app/getTencentCosConfig
+micro:
+  grpc_addr: 127.0.0.1
+  grpc_port: 9988
+  tracer_server_name: go.micro.server.{{.Name}}
+  tracer_client_name: go.micro.client.{{.Name}}
+  tracer_addr:  172.18.15.182:2379
+  registry:  172.18.15.182:2379
+  qps: 100
 `
