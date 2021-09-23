@@ -21,7 +21,7 @@ type Micro struct {
 	GrpcPort	string	` + "`" + `yaml:"grpc_port"` + "`" + `
 	ProjectName	string	` + "`" + `yaml:"project_name"` + "`" + `
 	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
-	Qps	string	` + "`" + `yaml:"qps"` + "`" + `
+	Qps	int	` + "`" + `yaml:"qps"` + "`" + `
 }
 
 type conf struct {

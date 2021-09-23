@@ -6,6 +6,7 @@ package main
 import (
     "context"
     "fmt"
+    "{{.Name}}/conf"
     "{{.Name}}/proto/example"
     "time"
     "github.com/micro/go-micro/v2/client"
@@ -14,20 +15,15 @@ import (
     "github.com/micro/go-micro/v2/registry/etcd"
 )
 
-type server struct {
-	g string	` + "`" + `yaml:"project_name"` + "`" + `
-	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
-}
-
 func main() {
     client.NewClient = grpc.NewClient
     c := client.NewClient(
         client.PoolSize(1),
         client.Retries(1),
         client.DialTimeout(time.Second*2),
-        client.Registry(etcd.NewRegistry(registry.Addrs(ServerSetting.Registry))),
+        client.Registry(etcd.NewRegistry(registry.Addrs(conf.Conf.Micro.Registry))),
     )
-    exampleClient := example.NewExampleService(ServerSetting.ProjectName, c)
+    exampleClient := example.NewExampleService(conf.Conf.Micro.ProjectName, c)
     msgs := make([]*example.Msg, 0)
     msgs = append(msgs, &example.Msg{Name: "name", Password: "pw"})
 
