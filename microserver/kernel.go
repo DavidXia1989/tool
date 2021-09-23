@@ -2,36 +2,24 @@ package template
 
 var Kernel = `package kernel
 import (
+	"code.zm.shzhanmeng.com/go-common/logging"
 	"code.zm.shzhanmeng.com/go-common/mysql_xorm"
 	"code.zm.shzhanmeng.com/go-common/redis"
-	"code.zm.shzhanmeng.com/go-common/logging"
-	"github.com/opentracing/opentracing-go"
-	"github.com/gin-gonic/gin"
-	"path/filepath"
-	"io/ioutil"
-	"gopkg.in/yaml.v2"
 	"context"
+	"errors"
+	"github.com/gin-gonic/gin"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
+	"{{.Name}}/common"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
-	"errors"
-	"{{.Name}}/common"
-	"fmt"
-	"github.com/micro/go-micro/v2"
-	"github.com/micro/go-micro/v2/registry"
-	"github.com/micro/go-micro/v2/registry/etcd"
-	ratelimit "github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2"
-	opentracing2 "github.com/micro/go-plugins/wrapper/trace/opentracing/v2"
-	"go.uber.org/zap"
 )
 
 type server struct {
-	ProjectName string	` + "`" + `yaml:"project_name"` + "`" + `
 	RunMode 	string	` + "`" + `yaml:"run_mode"` + "`" + `
 	HttpPort	string	` + "`" + `yaml:"http_port"` + "`" + `
-	GrpcPort	string	` + "`" + `yaml:"grpc_port"` + "`" + `
-	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
-	Qps	        int	` + "`" + `yaml:"qps"` + "`" + `
 	Mysql		[]mysql_xorm.XmsyqlConf	` + "`" + `yaml:"mysql"` + "`" + `
 	Redis		[]redis.RedisConf			` + "`" + `yaml:"redis"` + "`" + `
 	Log			logging.LogConf			` + "`" + `yaml:"log"` + "`" + `
@@ -41,7 +29,6 @@ var ServerSetting = &server{}
 
 // 配置句柄
 var ConfigContent []byte
-var MicroServer *micro.Service
 
 // 动态映射获取配置
 func GetConfig(conf interface{}) error {
@@ -127,40 +114,5 @@ func SetupHttp(r *gin.Engine){
 	}
 }
 
-//初始化grpc服务
-func GrpcInit(){
-	grpcAddr := "0.0.0.0:"+ServerSetting.GrpcPort
-
-	ser := micro.NewService(
-		micro.Name(ServerSetting.ProjectName),
-		micro.Address(grpcAddr),
-		micro.Registry(etcd.NewRegistry(registry.Addrs(ServerSetting.Registry))),
-		// 限流
-		micro.WrapHandler(ratelimit.NewHandlerWrapper(ServerSetting.Qps)),
-		// 链路追踪
-		micro.WrapHandler(opentracing2.NewHandlerWrapper(opentracing.GlobalTracer())),
-	)
-	MicroServer = &ser
-	// Init will parse the command line flags.
-	(*MicroServer).Init()
-}
-
-func GrpcStart(){
-	//启动并监听服务
-	if err := (*MicroServer).Run(); err != nil {
-		logging.ZapLogger.Info("micro grpc 启动失败",zap.Error(err))
-		fmt.Println(err)
-	}
-}
-
-
-func SetTracer()  {
-	t,io,err := common.NewTracer("go.micro.service.project", "localhost:6831")
-	if err != nil {
-		logging.ZapLogger.Error(err.Error())
-	}
-	defer io.Close()
-	opentracing.SetGlobalTracer(t)
-}
 `
 

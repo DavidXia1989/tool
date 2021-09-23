@@ -15,7 +15,7 @@ import (
 )
 
 type server struct {
-	ProjectName string	` + "`" + `yaml:"project_name"` + "`" + `
+	g string	` + "`" + `yaml:"project_name"` + "`" + `
 	Registry	string	` + "`" + `yaml:"registry"` + "`" + `
 }
 
