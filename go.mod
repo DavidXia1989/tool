@@ -1,4 +1,4 @@
-module code.zm.shzhanmeng.com/go-common/zmtool
+module github.com/DavidXia1989/tool
 
 go 1.14
 

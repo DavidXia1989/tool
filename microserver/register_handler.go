@@ -4,7 +4,7 @@ var RegisterHandler = `
 package handler
 
 import (
-"code.zm.shzhanmeng.com/go-common/logging"
+"github.com/DavidXia1989/logging"
 "fmt"
 "github.com/micro/go-micro/v2"
 "github.com/micro/go-micro/v2/registry"

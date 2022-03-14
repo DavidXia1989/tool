@@ -2,10 +2,10 @@ package template
 
 var Kernel = `package kernel
 import (
-	"code.zm.shzhanmeng.com/go-common/mysql_xorm"
-	"code.zm.shzhanmeng.com/go-common/redis"
-	"code.zm.shzhanmeng.com/go-common/logging"
-	"code.zm.shzhanmeng.com/go-common/cron"
+	"github.com/DavidXia1989/mysql_xorm"
+	"github.com/DavidXia1989/redis"
+	"github.com/DavidXia1989/logging"
+	"github.com/DavidXia1989/cron"
 	"github.com/gin-gonic/gin"
 	"path/filepath"
 	"io/ioutil"

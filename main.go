@@ -1,8 +1,8 @@
 package main
 
 import (
-	servertpl "code.zm.shzhanmeng.com/go-common/zmtool/microserver"
-	tpl "code.zm.shzhanmeng.com/go-common/zmtool/template"
+	servertpl "github.com/DavidXia1989/tool/microserver"
+	tpl "github.com/DavidXia1989/tool/template"
 	"flag"
 	"fmt"
 	"github.com/xlab/treeprint"
