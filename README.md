@@ -6,7 +6,6 @@ golang 版本 >=1.13
 
 ```shell
 #代理&私有库地址
-export GOPRIVATE=code.zm.shzhanmeng.com
 export GOPROXY=https://goproxy.cn
 #设置gopath/bin路径
 {{gopath}}/bin 加入环境变量
@@ -15,7 +14,7 @@ export GOPROXY=https://goproxy.cn
 ### 获取工具
 
 ```
-go get code.zm.shzhanmeng.com/go-common/zmtool
+go get github.com/DavidXia1989/zmtool
 ```
 
 ### 使用
