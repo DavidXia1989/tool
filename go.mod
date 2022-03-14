@@ -1,4 +1,4 @@
-module tool
+module github.com/DavidXia1989/tool
 
 go 1.17
 

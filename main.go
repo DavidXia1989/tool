@@ -1,8 +1,8 @@
 package main
 
 import (
-	servertpl "tool/microserver"
-	tpl "tool/template"
+	servertpl "github.com/DavidXia1989/tool/microserver"
+	tpl "github.com/DavidXia1989/tool/template"
 	"flag"
 	"fmt"
 	"github.com/xlab/treeprint"
