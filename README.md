@@ -14,18 +14,18 @@ export GOPROXY=https://goproxy.cn
 ### 获取工具
 
 ```
-go get github.com/DavidXia1989/zmtool
+go get github.com/DavidXia1989/tool
 ```
 
 ### 使用
 
 ```
 // 生成一个单体应用
-zmtool example
+tool example
 // 生成一个服务
-zmtool exampleServ server
+tool exampleServ server
 // 生成一个api网关
-zmttol exampleApi api
+tool exampleApi api
 
 ```
 
