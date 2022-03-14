@@ -5,10 +5,9 @@ var Module = `module {{.Name}}
 go 1.14
 
 require (
-	github.com/DavidXia1989/cron v0.0.0-20201222054010-a8ea79fea7e1
-	github.com/DavidXia1989/logging v0.0.0-20210207090756-8be76f7db7dc
-	github.com/DavidXia1989/mysql_xorm v0.0.0-20210118111623-91ade31e7971
-	github.com/DavidXia1989/redis v0.0.0-20210918022451-021f6ae5440e
+	github.com/DavidXia1989/logging v0.0.0-20211123032013-9f8ebb9eed9f
+	github.com/DavidXia1989/mysql_xorm v0.0.0-20220314114121-74440256cdbb
+	github.com/DavidXia1989/redis v0.0.0-20220314113919-10b9cb05f6begit
 	github.com/gin-gonic/gin v1.7.2
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
